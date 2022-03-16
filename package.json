@@ -1,0 +1,26 @@
+{
+  "name": "mpesa-api",
+  "version": "1.0.0",
+  "description": "Integrating NodeJS to the MPESA daraja Api",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mpesa",
+    "darajaApi",
+    "mpesaApi"
+  ],
+  "author": "Geek-Lor",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "config": "^3.2.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
