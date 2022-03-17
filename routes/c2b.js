@@ -3,13 +3,13 @@ const router = express.Router();
 const axios = require("axios");
 const auth = require("../mpesaAuthMiddleware/auth");
 
-// Route         api/c2b
+// Route - api/c2b
 router.get("/", auth, (req, res) => {
   if (!req.token) return res.status(401).send("Authorization Failed");
   res.status(200).json({ token: req.token });
 });
 
-// Route         api/c2b/register_urls
+// Route - api/c2b/register_urls
 router.get("/register_urls", auth, async (req, res) => {
   if (!req.token) {
     return res.status(401).send("No token, Authorization Failed");
@@ -40,10 +40,8 @@ router.get("/register_urls", auth, async (req, res) => {
   }
 });
 
-// Route                api/c2b/validation
-// Type                 Post
-// Access               Public
-// Desc                 Receives data from Mpesa for Validation
+// Route - api/c2b/validation
+// Desc - Receives data from Mpesa for Validation
 
 router.post("/validation", (req, res) => {
   const response = {
@@ -58,10 +56,8 @@ router.post("/validation", (req, res) => {
   res.json(response);
 });
 
-// Route                api/c2b/confirmation
-// Type                 Post
-// Access               Public
-// Desc                 Receives data from Mpesa for confirmation
+// Route - api/c2b/confirmation
+// Desc - Receives data from Mpesa for confirmation
 
 router.post("/confirmation", (req, res) => {
   const response = {
@@ -76,10 +72,8 @@ router.post("/confirmation", (req, res) => {
   res.status(200).json(response);
 });
 
-// Route                api/c2b/simulate
-// Type                 Get
-// Access               Private
-// Desc                 Simulate a C2B Mpesa Api transaction
+// Route - api/c2b/simulate
+// Desc - Simulate a C2B Mpesa Api transaction
 
 router.get("/simulate", auth, async (req, res) => {
   if (!req.token) return res.status(401).send("No Token, Authorization Failed");
@@ -98,7 +92,7 @@ router.get("/simulate", auth, async (req, res) => {
     CommandID: "CustomerPayBillOnline",
     Amount: "100",
     Msisdn: "254708374149",
-    BillRefNumber: "timothy",
+    BillRefNumber: "reuben",
   };
 
   try {

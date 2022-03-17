@@ -62,7 +62,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Route - api/test/callback
+// Route - api/lnm/callback
 // Desc - Recieve response from Mpesa
 
 router.post("/callback", (req, res) => {
