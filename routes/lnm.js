@@ -3,19 +3,15 @@ const router = express.Router();
 const axios = require("axios");
 const auth = require("../mpesaAuthMiddleware/auth");
 
-// Route              api/test
-// Type                Get
-// Access              Private
-// Desc                Get Auth Token
+// Route - api/lnm
+// Desc - Get Auth Token
 
 router.get("/", auth, (req, res) => {
   res.status(200).json({ token: req.token });
 });
 
-// Route               api/test/lnm
-// Type                Post
-// Access              Private
-// Desc                Lipa na Mpesa Simulation
+// Route - api/lnm
+// Description - Lipa na Mpesa Simulation
 
 router.post("/", auth, async (req, res) => {
   const shortcode = "174379";
@@ -30,8 +26,7 @@ router.post("/", auth, async (req, res) => {
   const password = Buffer.from(`${shortcode}${passkey}${timestamp}`).toString(
     "base64"
   );
-  // const callBackUrl = "https://03b5a0f6.ngrok.io/api/callback";
-  const callBackUrl = "https://e36a-197-176-229-39.ngrok.io/api/callback";
+  const callBackUrl = "https://9639-197-176-229-39.ngrok.io/api/lnm/callback";
   const accountRef = "reuben";
   const transactionDesc = "LNM API Test";
 
@@ -67,10 +62,8 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Route                      api/test/callback
-// Type                       Post
-// Access                     Public
-// Desc                       Recieve response from Mpesa
+// Route - api/test/callback
+// Desc - Recieve response from Mpesa
 
 router.post("/callback", (req, res) => {
   console.log("...........Data Recived from Mpesa.........");

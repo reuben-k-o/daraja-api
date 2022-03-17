@@ -1,24 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const oAuth = require("../mpesaAuthMiddleware/oAuth");
+const auth = require("../mpesaAuthMiddleware/auth");
 
 // Route         api/c2b
-// Type          Get
-// Access        Private
-// Desc          Get Access Token
-
-router.get("/", oAuth, (req, res) => {
+router.get("/", auth, (req, res) => {
   if (!req.token) return res.status(401).send("Authorization Failed");
   res.status(200).json({ token: req.token });
 });
 
 // Route         api/c2b/register_urls
-// Type          Get
-// Access        Private
-// Desc          Register Validation and Confirmation URLs
-
-router.get("/register_urls", oAuth, async (req, res) => {
+router.get("/register_urls", auth, async (req, res) => {
   if (!req.token) {
     return res.status(401).send("No token, Authorization Failed");
   }
@@ -27,15 +19,16 @@ router.get("/register_urls", oAuth, async (req, res) => {
 
   const config = {
     headers: {
-      Authorization: auth
-    }
+      Authorization: auth,
+    },
   };
 
   const json = {
     ShortCode: "603018",
     ResponseType: "Completed",
-    ConfirmationURL: "https://a603242d.ngrok.io/api/c2b/confirmation",
-    ValidationURL: "https://a603242d.ngrok.io/api/c2b/validation"
+    ConfirmationURL:
+      "https://cdd4-197-176-229-39.ngrok.io/api/c2b/confirmation",
+    ValidationURL: "https://cdd4-197-176-229-39.ngrok.io/api/c2b/validation",
   };
 
   try {
@@ -55,7 +48,7 @@ router.get("/register_urls", oAuth, async (req, res) => {
 router.post("/validation", (req, res) => {
   const response = {
     ResponseCode: "0000",
-    ResponseDesc: "success"
+    ResponseDesc: "success",
   };
 
   console.log("............Validation Data from Mpesa..........");
@@ -73,7 +66,7 @@ router.post("/validation", (req, res) => {
 router.post("/confirmation", (req, res) => {
   const response = {
     ResponseCode: "0000",
-    ResponseDesc: "success"
+    ResponseDesc: "success",
   };
 
   console.log("............Confirmation Data from Mpesa..........");
@@ -88,7 +81,7 @@ router.post("/confirmation", (req, res) => {
 // Access               Private
 // Desc                 Simulate a C2B Mpesa Api transaction
 
-router.get("/simulate", oAuth, async (req, res) => {
+router.get("/simulate", auth, async (req, res) => {
   if (!req.token) return res.status(401).send("No Token, Authorization Failed");
 
   const url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
@@ -96,8 +89,8 @@ router.get("/simulate", oAuth, async (req, res) => {
 
   const config = {
     headers: {
-      Authorization: auth
-    }
+      Authorization: auth,
+    },
   };
 
   const json = {
@@ -105,7 +98,7 @@ router.get("/simulate", oAuth, async (req, res) => {
     CommandID: "CustomerPayBillOnline",
     Amount: "100",
     Msisdn: "254708374149",
-    BillRefNumber: "timothy"
+    BillRefNumber: "timothy",
   };
 
   try {
